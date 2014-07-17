@@ -16,7 +16,7 @@
   </title>
 </head>
 <body>
-  <header class="kss-header">
+  <header id="kss-header">
     <h1>
       {{#if argv.title}}
         {{argv.title}}
@@ -51,14 +51,14 @@
             </div>
             <h2 class="kss-section-header"><span class="kss-section-ref">{{ reference }}</span> - {{ header }}</h2>
           {{/whenDepth}}
+          <div class="kss-markup">
+            <pre><code>{{markup}}</code></pre>
+          </div>
           {{#if description}}
             <div class="kss-section-desc">{{html description}}</div>
           {{/if}}
-          <div class="kss-markup">
-            <pre><code>{{markup}}</code></pre>
-          </div> 
           {{#ifAny markup modifiers}}
-            <iframe class="kss-modifiers" srcdoc='
+            <iframe class="kss-modifiers" onload="javascript: this.style.height = this.contentWindow.document.body.scrollHeight + 'px';" srcdoc='
               <html>
               <head>
                 <link rel="stylesheet" type="text/css" href="public/style.css">
