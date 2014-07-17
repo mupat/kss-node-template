@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="kss-node" />
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,700|Source+Code+Pro:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="public/kss.css">
+
+  <title>
+    {{#if argv.title}}
+      {{argv.title}} styleguide
+    {{else}}
+      kss-node generated styleguide
+    {{/if}}
+  </title>
+</head>
+<body>
+  <header class="kss-header">
+    <h1>
+      {{#if argv.title}}
+        {{argv.title}}
+      {{else}}
+        kss-node generated styleguide
+      {{/if}}
+      {{#if argv.subtitle}}
+        <small>{{argv.subtitle}}</small>
+      {{/if}}
+    </h1>
+    <ul>
+      <li><a href="index.html">Overview</a></li>
+      {{#eachRoot}}
+        <li><a href="section-{{reference}}.html">{{header}}</a></li>
+      {{/eachRoot}}
+    </ul>
+    {{#if argv.logo}}
+      <img src="{{argv.logo}}" alt="styleguide logo">
+    {{/if}}
+  </header>
+  <div id="kss-content">
+    {{#if overview}}
+      <section class="kss-overview">{{html overview}}</section>
+    {{else}}
+      {{#eachSection rootNumber}}
+        <section class="kss-depth-{{ refDepth }}">
+          {{#whenDepth 1}}
+            <h1 class="kss-section-header"><span class="kss-section-ref">{{ reference }}.0</span> - {{ header }}</h1>
+          {{else}}
+            <div class="kss-source">
+              <pre><code>{{ source }}</code></pre>
+            </div>
+            <h2 class="kss-section-header"><span class="kss-section-ref">{{ reference }}</span> - {{ header }}</h2>
+          {{/whenDepth}}
+          {{#if description}}
+            <div class="kss-section-desc">{{html description}}</div>
+          {{/if}}
+          <div class="kss-markup">
+            <pre><code>{{markup}}</code></pre>
+          </div> 
+          {{#ifAny markup modifiers}}
+            <iframe class="kss-modifiers" srcdoc='
+              <html>
+              <head>
+                <link rel="stylesheet" type="text/css" href="public/style.css">
+              </head>
+              <body>
+                {{#unless modifiers}}
+                  <div class="kss-modifiers-single">{{modifierMarkup}}</div>
+                {{else}}
+                  <div class="kss-modifiers-multi">
+                    {{#eachModifier}}
+                      <div class="kss-modifier-desc">{{html description}}</div>
+                      <p class="kss-modifier-name">{{name}}</p>
+                      <div class="kss-modifier-markup">{{modifierMarkup}}</div>
+                    {{/eachModifier}}
+                  </div>
+                {{/unless}}
+              </body>
+              </html>              
+            '></iframe>            
+          {{/ifAny}}
+        </section>
+      {{/eachSection}}
+    {{/if}}
+  </div>
+
+  <script type="text/javascript" src="public/kss.js"></script>
+</body>
+</html>
