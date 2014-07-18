@@ -5,7 +5,35 @@
   <meta name="generator" content="kss-node" />
 
   <link href='http://fonts.googleapis.com/css?family=Lato:300,700|Source+Code+Pro:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="public/prism.css">
   <link rel="stylesheet" type="text/css" href="public/kss.css">
+
+  <script type="text/javascript">
+    function calculateHeight(context) {
+      var body = context.contentWindow.document.body,
+          el = context.contentWindow.document.documentElement,
+          height = context.contentWindow.document.height,
+          heightCalc = 0;
+
+      if (typeof height !== 'undefined') {
+        heightCalc = height; // For webkit browsers
+      } else {
+        heightCalc = Math.max(body.scrollHeight, body.offsetHeight, el.clientHeight, el.scrollHeight, el.offsetHeight);
+      }
+      
+      context.style.height = heightCalc + 'px';
+    }
+
+    function markupToggle(event, context) {
+      event.preventDefault();
+      context.parentNode.nextSibling.nextSibling.classList.toggle('visible');
+    }
+
+    function sourceToggle(event, context) {
+      event.preventDefault();
+      context.parentNode.previousSibling.previousSibling.classList.toggle('visible');
+    }
+  </script>
 
   <title>
     {{#if argv.title}}
@@ -43,22 +71,34 @@
     {{else}}
       {{#eachSection rootNumber}}
         <section class="kss-depth-{{ refDepth }}">
-          {{#whenDepth 1}}
-            <h1 class="kss-section-header"><span class="kss-section-ref">{{ reference }}.0</span> - {{ header }}</h1>
+          {{#whenDepth 1 }}
+            <h1 class="kss-section-header" id="{{~reference~}}.0">
+              <a class="kss-anchor" href="#{{~reference~}}.0">#</a>
+              <span class="kss-section-ref">{{ reference }}.0</span> - {{ header }}
+            </h1>
           {{else}}
-            <div class="kss-source">
-              <pre><code>{{ source }}</code></pre>
-            </div>
-            <h2 class="kss-section-header"><span class="kss-section-ref">{{ reference }}</span> - {{ header }}</h2>
+            {{#if source}}
+              <div class="kss-source">
+                <pre class="line-numbers"><code class="language-css">{{ source }}</code></pre>
+              </div>
+            {{/if }}
+            <h2 class="kss-section-header" id="{{~reference~}}">
+              <a class="kss-anchor" href="#{{~reference~}}">#</a>
+              <span class="kss-section-ref">{{ reference }}</span> - {{ header }}
+              <a class="kss-btn-markup" href="#" onclick="javascript: markupToggle(event, this);">markup</a>
+              <a class="kss-btn-source" href="#" onclick="javascript: sourceToggle(event, this);">source</a>
+            </h2>
           {{/whenDepth}}
-          <div class="kss-markup">
-            <pre><code>{{markup}}</code></pre>
-          </div>
+          {{#if markup}}
+            <div class="kss-markup">
+              <pre class="line-numbers"><code class="language-markup">{{ markup }}</code></pre>
+            </div>
+          {{/if}}
           {{#if description}}
             <div class="kss-section-desc">{{html description}}</div>
           {{/if}}
           {{#ifAny markup modifiers}}
-            <iframe class="kss-modifiers" onload="javascript: this.style.height = this.contentWindow.document.body.scrollHeight + 'px';" srcdoc='
+            <iframe class="kss-modifiers" onload="javascript: calculateHeight(this);" srcdoc='
               <html>
               <head>
                 <link rel="stylesheet" type="text/css" href="public/style.css">
@@ -75,6 +115,7 @@
                     {{/eachModifier}}
                   </div>
                 {{/unless}}
+                <script type="text/javascript" src="public/kss.js"></script>
               </body>
               </html>              
             '></iframe>            
@@ -84,6 +125,6 @@
     {{/if}}
   </div>
 
-  <script type="text/javascript" src="public/kss.js"></script>
+  <script type="text/javascript" src="public/prism.min.js"></script>  
 </body>
 </html>

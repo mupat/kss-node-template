@@ -3,7 +3,7 @@
 */
 
 @background_main: #ffffff;
-@background_section: #353535;
+@background_section: #272822;
 
 @height_topbar: 75px;
 @padding_default: 10px;
@@ -14,6 +14,8 @@
 @text_color: #333333;
 @text_color_inverse: @text_color + #ffffff;
 @text_color_light: lighten(@text_color, 65%);
+
+@borderRadius: 5px;
 /*
 --- default styles
 */
@@ -25,7 +27,8 @@
 }
 
 code {
-  font-family: 'Source Code Pro';
+  font-family: 'Source Code Pro' !important;
+  white-space: pre-wrap;
 }
 
 body {
@@ -88,27 +91,74 @@ a {
 }
 
 section:not(.kss-overview) {
-  padding: @padding_default;
   position: relative;
   width: 1000px;
-  margin: 10px;
+  margin-bottom: 50px;
   margin-left: 15%;
+  box-shadow: 0 0 1px 2px @text_color_light;
+  border-radius: @borderRadius;
 
   > .kss-section-header {
     padding: 10px;
     background-color: @background_section;
     color: @text_color_inverse;
+    position: relative;
+    border-radius: @borderRadius @borderRadius 0 0;
+
+    &:hover > .kss-anchor,
+    > .kss-anchor:hover { 
+      opacity: 1;
+    }
+
+    > .kss-anchor {
+      transition: all 0.25s ease;
+      position: absolute;
+      top: 0;
+      padding: 0 10px;
+      left: -40px;
+      font-size: 35px;
+      opacity: 0;
+    }
+
+    > *[class^="kss-btn"] {
+      position: absolute;
+      font-size: 16px;
+      right: 10px;
+      top: 5px;
+    }
+
+    > .kss-btn-markup {
+      top: 22px;
+    }
   }
 
   > .kss-source {
     position: absolute;
     left: 100%;
-    background-color: @background_section;
-    color: @text_color_inverse;
     top: 10px;
-    height: 100%;
+    max-height: 97.5%;
+    transition: opacity 0.5s ease;
+    opacity: 0.5;
     overflow: auto;
-    width: 500px;
+    background-color: @background_section;
+    border-radius: 0 @borderRadius @borderRadius 0;
+    width: 0;
+    transition: width 0.5s ease;
+
+    &.visible {
+      width: 500px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+
+    > pre {
+      border-radius: 0;
+      height: 100%;
+      padding: 10px 0 20px 60px;
+      overflow: visible;
+    }
   }
 
   > .kss-modifiers {
@@ -117,9 +167,28 @@ section:not(.kss-overview) {
     height: 100%;
     overflow: hidden;
     border: none;
+    margin-top: 20px;
   }
 
-  > .kss-markup  pre{
-    white-space: pre-wrap;
+  > .kss-markup {
+    height: 0;
+    transition: height 0.5s ease;
+    overflow: hidden;
+    margin: -18px 0 20px 0;
+
+    &.visible { 
+      height: 250px;
+    }
+
+    pre {
+      border-radius: 0;
+      padding: 10px 0 10px 60px;
+      height: 96%;
+    }
+  }
+
+  > .kss-section-desc {
+    padding: 10px;
+    background-color: lighten(@text_color_light, 10%);
   }
 }
