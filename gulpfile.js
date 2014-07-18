@@ -19,7 +19,7 @@ gulp.task('copy_kss', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.src, ['build']);
+  gulp.watch(paths.src, ['default']);
 });
 
 // The default task (called when you run `gulp` from cli)
