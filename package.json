@@ -12,5 +12,9 @@
   "dependencies": {
     "gulp": "3.8.6",
     "kss": "mupat/kss-node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mupat/kss-node-template.git"
   }
 }
