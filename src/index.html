@@ -6,7 +6,7 @@
 
   <link href='http://fonts.googleapis.com/css?family=Lato:300,700|Source+Code+Pro:300' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="public/prism.css">
-  <link rel="stylesheet" type="text/css" href="public/kss.css">
+  <link rel="stylesheet" type="text/css" href="public/kss.css">  
 
   <script type="text/javascript">
     function calculateHeight(context) {
@@ -21,7 +21,7 @@
         heightCalc = Math.max(body.scrollHeight, body.offsetHeight, el.clientHeight, el.scrollHeight, el.offsetHeight);
       }
       
-      context.style.height = heightCalc + 'px';
+      context.style.height = heightCalc + 20 + 'px';
     }
 
     function markupToggle(event, context) {
@@ -107,9 +107,13 @@
                 {{else}}
                   <div class="kss-modifiers-multi">
                     {{#eachModifier}}
-                      <div class="kss-modifier-desc">{{html description}}</div>
-                      <p class="kss-modifier-name">{{name}}</p>
-                      <div class="kss-modifier-markup">{{modifierMarkup}}</div>
+                      <div style="margin-bottom: 10px; clear: both;">
+                        <div style="float: left; margin-right: 10px;">
+                          <strong class="kss-modifier-name">{{name}}</strong>
+                          <div class="kss-modifier-desc">{{html description}}</div> 
+                        </div>                     
+                        <div class="kss-modifier-markup" style="float: right;">{{modifierMarkup}}</div>
+                      </div>
                     {{/eachModifier}}
                   </div>
                 {{/unless}}
@@ -124,5 +128,13 @@
   </div>
 
   <script type="text/javascript" src="public/prism.min.js"></script>  
+  <script type="text/javascript">
+    var codeBlocks = document.getElementsByTagName('code');
+    var classes = [];
+    for(var i=0; i < codeBlocks.length; i++) {
+      classes = codeBlocks[i].classList;
+      if(classes.length === 0) classes.add('language-');
+    }
+  </script>
 </body>
 </html>

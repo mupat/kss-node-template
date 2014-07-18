@@ -14,6 +14,7 @@
 @text_color: #333333;
 @text_color_inverse: @text_color + #ffffff;
 @text_color_light: lighten(@text_color, 65%);
+@text_highlight: #fd971f;
 
 @borderRadius: 5px;
 /*
@@ -92,7 +93,7 @@ a {
 }
 
 #kss-content {
-  margin-top: @height_topbar + 20px;
+  margin-top: @height_topbar;
 }
 
 section:not(.kss-overview) {
@@ -102,6 +103,10 @@ section:not(.kss-overview) {
   margin-left: 15%;
   box-shadow: 0 0 1px 2px @text_color_light;
   border-radius: @borderRadius;
+
+  &:first-child {
+    margin-top: 95px;
+  }
 
   > .kss-section-header {
     padding: 10px;
@@ -173,6 +178,7 @@ section:not(.kss-overview) {
     overflow: hidden;
     border: none;
     margin-top: 20px;
+    padding: 10px;
   }
 
   > .kss-markup {
@@ -195,5 +201,63 @@ section:not(.kss-overview) {
   > .kss-section-desc {
     padding: 10px;
     background-color: lighten(@text_color_light, 10%);
+  }
+}
+
+section.kss-overview {
+  padding: 20px 50px;
+  background-color: lighten(@text_color_light, 10%);
+}
+
+//definitions for markup
+.kss-overview,
+.kss-section-desc,
+.kss-modifier-desc {
+  h1 {
+    font-size: @font_h1;
+    color: @text_color;
+    border-bottom: 1px solid @text_color_light;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: @font_h1 - 2.5%;
+    color: lighten(@text_color, 10%);
+    margin-bottom: 8px;
+  }
+
+  h3 {
+    font-size: @font_h1 - 5%;
+    color: lighten(@text_color, 20%);
+    margin-bottom: 5px;
+  }
+
+  p {
+    padding: 10px;
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: 10px;
+
+    & + p,
+    & + code {
+      margin-top: -20px;
+    }
+  }
+
+  ol,ul {
+    margin: 10px 0 10px 25px;
+
+    li {
+      margin-left: 25px;
+      font-size: 20px;
+    }
+  }
+
+  a {
+    color: @text_highlight;
+
+    &:hover {
+      color: darken(@text_highlight, 15%);
+    }
   }
 }
