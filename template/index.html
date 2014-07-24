@@ -58,8 +58,7 @@
     <ul>
       <li><a href="index.html">Overview</a></li>
       {{#eachRoot}}
-        <li class="kss-seperator">|</li>
-        <li><a href="section-{{reference}}.html">{{header}}</a></li>        
+        <li class="kss-main-menu"><a href="section-{{reference}}.html">{{header}}</a></li>        
       {{/eachRoot}}
     </ul>
   </header>
@@ -68,11 +67,12 @@
       <section class="kss-overview">{{html overview}}</section>
     {{else}}
       {{#eachSection rootNumber}}
+        <div class="kss-reference-anchor" id="{{~reference~}}"></div>
         <section class="kss-depth-{{ refDepth }}">
           {{#whenDepth 1 }}
-            <h1 class="kss-section-header" id="{{~reference~}}.0">
-              <a class="kss-anchor" href="#{{~reference~}}.0">#</a>
-              <span class="kss-section-ref">{{ reference }}.0</span> - {{ header }}
+            <h1 class="kss-section-header">
+              <a class="kss-anchor" href="#{{~reference~}}">#</a>
+              <span class="kss-section-ref">{{ reference }}</span> - {{ header }}
             </h1>
           {{else}}
             {{#if source}}
@@ -80,7 +80,7 @@
                 <pre class="line-numbers"><code class="language-css">{{ source }}</code></pre>
               </div>
             {{/if }}
-            <h2 class="kss-section-header" id="{{~reference~}}">
+            <h2 class="kss-section-header">
               <a class="kss-anchor" href="#{{~reference~}}">#</a>
               <span class="kss-section-ref">{{ reference }}</span> - {{ header }}
               <a class="kss-btn-markup" href="#" onclick="javascript: markupToggle(event, this);">markup</a>
@@ -120,7 +120,7 @@
                 <script type="text/javascript" src="public/kss.js"></script>
               </body>
               </html>              
-            '></iframe>            
+            '></iframe>
           {{/ifAny}}
         </section>
       {{/eachSection}}

@@ -9,12 +9,14 @@
 @padding_default: 10px;
 
 @font_h1: 24px;
+@font_p: 18px;
 
 @text_link: #575757;
 @text_color: #333333;
 @text_color_inverse: @text_color + #ffffff;
 @text_color_light: lighten(@text_color, 65%);
 @text_highlight: #fd971f;
+@blue: #039be5;
 
 @borderRadius: 5px;
 /*
@@ -47,10 +49,15 @@ a {
   color: @text_link;
 
   &:hover {
-    color: lighten(@text_link, 15%);
+    color: @text_highlight;
   }
 }
-
+.kss-reference-anchor {
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin-bottom: 75px;
+}
 #kss-header {
   height: @height_topbar;
   box-shadow: 0 0 1px 1px @text_color_light;
@@ -58,35 +65,54 @@ a {
   top: 0;
   left: 0;
   background-color: @background_main;
+  opacity: 0.96;
   width: 100%;
-  padding: @padding_default;
+  padding: 0 @padding_default;
   z-index: 10;
 
   h1 {
     display: inline-block;
+    margin-top: 10px;
     margin-right: 20px;
+    font-weight: normal;
 
     > small {
       display: block;
-      color: @text_color_light;
+      // color: @text_color_light;
+      color: @blue;
     }
   }
 
   ul {
     display: inline-block;
+    float: right;
+    // margin-top: 10px;
 
     li {
       list-style: none;
       display: inline-block;
-      margin-right: 10px;
+      // margin-right: 10px;
 
       &.kss-seperator {
-        font-size: 30px;
+        font-size: @font_h1;
         color: @text_color_light;
+      }
+      &.kss-main-menu:before {
+        // content: "|";
+        // margin: 0 10px 0 0;
       }
 
       a {
-        font-size: @font_h1;
+        font-size: @font_p;
+        padding: 0 20px;
+        height: 75px;
+        line-height: 75px;
+        display: inline-block;
+        margin: 0 -5px 0 -2px;
+        
+        &:hover {
+          background-color: #f8f8f8;
+        }
       }
     }
   }
@@ -99,7 +125,7 @@ a {
 section:not(.kss-overview) {
   position: relative;
   width: 1000px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   margin-left: 15%;
   box-shadow: 0 0 1px 2px @text_color_light;
   border-radius: @borderRadius;
@@ -209,13 +235,14 @@ section.kss-overview {
   background-color: lighten(@text_color_light, 10%);
 }
 
-//definitions for markup
+//definitions for markdown
 .kss-overview,
 .kss-section-desc,
 .kss-modifier-desc {
   h1 {
     font-size: @font_h1;
     color: @text_color;
+    padding-bottom: 10px;
     border-bottom: 1px solid @text_color_light;
     margin-bottom: 10px;
   }
