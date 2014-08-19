@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "gulp": "3.8.6",
-    "kss": "mupat/kss-node"
+    "kss": "git+https://github.com/mupat/kss-node.git"
   },
   "repository": {
     "type": "git",
